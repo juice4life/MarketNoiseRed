@@ -19,24 +19,22 @@ diprange=.01:.01:floor(var(spacings)*100)/100;
 
 timedata=cell(1,length(diprange));
 
+ind3=0;
 for dip=diprange;
+	ind3=ind3+1;
 	for j=1:length(spacings)-1;
-		if spacings(j+1)-spacings(j)>=dip && ;
-			k=0;
-			ind=j+2;
-			while k==0;
-				if spacings(ind)>= spacings(j);
-					t=ind-j;
-					k=1;
-				elseif ind==length(spacings);
-					k=1;
-				else
-					ind=ind+1;
-				end
+		ind2=0;
+		if spacings(j+1)-spacings(j)>=dip;
+			ind2=ind2+1;
+			ind=j;
+			while spacings(j)>spacings(j+1) && ind~=length(spacings);
+				ind=j+1;
+				tdiff=ind-j;
 			end
+			times(ind2)=tdiff;
 		end
 	end
-	timedata
+	timedata{ind3}=times;
 end
 
 end
